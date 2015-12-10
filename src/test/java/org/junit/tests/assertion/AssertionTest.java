@@ -1,5 +1,6 @@
 package org.junit.tests.assertion;
 
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -13,9 +14,11 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.expectThrows;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertGreaterThan;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 import org.junit.Assert;
 import org.junit.Assert.ThrowingRunnable;
@@ -26,6 +29,7 @@ import org.junit.internal.ArrayComparisonFailure;
 /**
  * Tests for {@link org.junit.Assert}
  */
+
 public class AssertionTest {
 // If you want to use 1.4 assertions, they will be reported correctly.
 // However, you need to add the -ea VM argument when running.
@@ -34,6 +38,21 @@ public class AssertionTest {
 //      assert false;
 //  }
 
+    public class MyComparator implements Comparator<Integer> {
+        public int compare (Integer o1, Integer o2) {
+            return o1.compareTo(o2);
+        }
+    }
+    
+    @Test
+    public void testComparator () {
+        Integer o1 = new Integer (2);
+        Integer o2 = new Integer (5);
+        MyComparator comparator = new MyComparator ();
+        assertGreaterThan(o1, o2, comparator);
+    }
+    
+    
     @Test(expected = AssertionError.class)
     public void fails() {
         Assert.fail();
