@@ -29,6 +29,21 @@ public class Assert {
     }
 
     /**
+     * Asserts that object o1 is greater than object o2. 
+     * If it isn't it throws an @link AssertionError.
+     * 
+     * @param o1: first object to compare.
+     * @param o2: second object to compare.
+     * @param comparator: comparator used to identify the greater object.
+     */
+    protected static <T> void assertGreaterThan(T o1, T o2, java.util.Comparator<T> comparator) {
+        int diff = comparator.compare(o1, o2);
+        if (diff <= 0) {
+            fail("First object not greather than the second one.");
+        }
+    }
+    
+    /**
      * Asserts that a condition is true. If it isn't it throws an
      * {@link AssertionError} with the given message.
      *
